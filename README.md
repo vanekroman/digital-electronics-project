@@ -5,5 +5,15 @@
 * Viktor Vlček (240709) - svačinář
 * Roman Vaněk (240707) - osciloskop master
 
+## Teoretický úvod
+![image](https://github.com/vanekroman/digital-electronics-project/blob/main/Morse_abeceda.png)
+
+## Popis hardwaru
+
+## Popis softwaru
+### Simulace
+
+## Instrukce k používání
+
 ## Reference
 
