@@ -25,11 +25,13 @@ library ieee;
 entity period_cnt is
   generic (
     g_MAX : natural := 5 --! Number of clk pulses to generate one enable signal period
-  );                       -- Note that there IS a semicolon between generic and port sections
+  );
   port (
-    clk : in    std_logic; --! Main clock
-    rst : in    std_logic; --! High-active synchronous reset
-    ce  : out   std_logic  --! Clock enable pulse signal
+    clk    : in  std_logic; --! Main clock
+    rst    : in  std_logic; -- Button
+    input  : in  std_logic; -- Button
+    output : out std_logic;  -- Button
+    cnt    : out std_logic_vector(31 downto 0)
   );
 end entity period_cnt;
 
@@ -40,7 +42,7 @@ end entity period_cnt;
 architecture behavioral of period_cnt is
 
   -- Local counter
-  signal sig_cnt : natural;
+  signal sig_cnt : unsigned(31 downto 0) := (others => '0'); --! Local counter
 
 begin
 
@@ -53,20 +55,18 @@ begin
   begin
 
     if rising_edge(clk) then              -- Synchronous process
-      if (rst = '1') then                 -- High-active reset
-        sig_cnt <= 0;                     -- Clear local counter
-        ce      <= '0';                   -- Set output to low
-
-      -- Test number of clock periods
-      elsif (sig_cnt >= (g_MAX - 1)) then
-        sig_cnt <= 0;                     -- Clear local counter
-        ce      <= '1';                   -- Generate clock enable pulse
-      else
+      
+      if (input = '1') then
         sig_cnt <= sig_cnt + 1;
-        ce      <= '0';
+     
+      elsif (rst = '1') then
+        sig_cnt <= (others => '0');
+        
       end if;
+      
     end if;
 
   end process p_clk_enable;
-
+  
+  cnt <= std_logic_vector(sig_cnt);
 end architecture behavioral;

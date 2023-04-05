@@ -35,13 +35,28 @@ entity top is
     Port 
     ( 
         CLK100MHZ : in STD_LOGIC;
-        BTNC : in STD_LOGIC
+        BTNC : in STD_LOGIC;
+        BTNU : in STD_LOGIC
     );
 end top;
 architecture Behavioral of top is
 
+    signal sig_cnt_32bit : std_logic_vector(31 downto 0); --! Counter0
+
 begin
 
-
+  --------------------------------------------------------
+  -- Instance (copy) of clock_enable entity
+  --------------------------------------------------------
+  period_cnt0 : entity work.period_cnt
+      generic map(
+          g_MAX => 5
+      )
+      port map(
+          clk => CLK100MHZ,
+          rst => BTNU,
+          input => BTNC,
+          cnt  => sig_cnt_32bit
+      );
 
 end Behavioral;
