@@ -7,6 +7,7 @@
 
 ## Teoretický úvod
 :blue_square: 1 ČÁRKA     :yellow_square: 0 TEČKA
+
 ![image](https://github.com/vanekroman/digital-electronics-project/blob/main/Morse_abeceda.png)
 
 ## Popis hardwaru
