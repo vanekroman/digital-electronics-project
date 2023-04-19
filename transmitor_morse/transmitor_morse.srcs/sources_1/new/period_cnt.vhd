@@ -1,3 +1,4 @@
+-- vsg_off
 ----------------------------------------------------------
 --
 --! @title Clock enable
@@ -6,8 +7,11 @@
 --! @copyright (c) 2023 Roman Vanek
 --! This work is licensed under the terms of the MIT license
 --!
---! Reads period of input pulse and output boolean value, if the period
---! is within defined value.
+--! Counting period of input signal i_logic then assigns it either '0' or '1'
+--! if it is shorter then g_dot_length respectively longer then g_dot_length.
+--! Output will be provided when i_space changes to '1' as n-bit value of o_morse.
+--! n (number of bits to read) is stored in o_cnt
+--! !! Read output values only when o_read is '1' !!
 --
 -- Hardware: Nexys A7-50T, xc7a50ticsg324-1L
 -- Software: TerosHDL, Vivado 2020.2, EDA Playground
@@ -24,15 +28,15 @@ library ieee;
 
 entity period_cnt is
   generic (
-    g_dot_length  : natural := 5 --! Number of clk pulses to generate one enable signal period
+    g_dot_length : natural := 5 --! Number of clk pulses to generate one enable signal period
   );
   port (
-    clk      : in  std_logic; --! Main clock
-    i_space  : in  std_logic; -- Button
-    i_logic  : in  std_logic; -- Button
-    o_morse  : out std_logic_vector(3 downto 0); -- Full morse code according to o_cnt_n
-    o_cnt    : out std_logic_vector(2 downto 0); -- Number of input signals 0 - 4
-    o_read   : out std_logic
+    clk     : in    std_logic;                    -- Main clock
+    i_space : in    std_logic;                    -- Button for next letter
+    i_logic : in    std_logic;                    -- Button for morse code input
+    o_morse : out   std_logic_vector(3 downto 0); -- Full morse code in respect to o_cnt!
+    o_cnt   : out   std_logic_vector(2 downto 0); -- Number of o_morse bits to read 0 - 4
+    o_read  : out   std_logic
   );
 end entity period_cnt;
 
@@ -45,7 +49,8 @@ architecture behavioral of period_cnt is
   -- Local counter
   signal sig_counter : unsigned(31 downto 0) := (others => '0'); --! Local counter
   signal sig_morse   : unsigned(3 downto 0)  := (others => '0'); --! Local counter
-  signal sig_cnt     : natural := 0; --! Local counter
+  signal sig_cnt     : natural               := 0;               --! Local counter
+  signal sig_read    : std_logic             := '0';
 
 begin
 
@@ -57,36 +62,37 @@ begin
   p_clk_enable : process (clk) is
   begin
 
-    if rising_edge(clk) then -- Synchronous process
-      
+    if rising_edge(clk) then                                   -- Synchronous process
       if (i_logic = '1') then
-        o_read <= '0';                      -- Dont read yet
+        sig_read    <= '0';
+        o_read      <= '0';                                    -- Dont read yet
         sig_counter <= sig_counter + 1;
-      elsif (sig_counter > 0) then -- end of logic signal
+      elsif (sig_counter > 0) then                             -- end of logic signal
         -- asigh DASH or DOT to correct position
-        if(sig_counter > g_dot_length) then -- DASH
-            sig_morse(sig_cnt) <= '1';
-        else                                -- DOT
-            sig_morse(sig_cnt) <= '0';
+        if (sig_counter > g_dot_length) then
+          sig_morse(sig_cnt) <= '1';                           -- DASH
+        else
+          sig_morse(sig_cnt) <= '0';                           -- DOT
         end if;
-        -- include new bit definition (Dot / Dash) for whole letter
-        sig_cnt <= sig_cnt + 1;    
-        o_cnt <= std_logic_vector(to_unsigned(sig_cnt, 3)); 
-                
+        -- next index if sig_morse (whole letter)
+        sig_cnt     <= sig_cnt + 1;
+        sig_counter <= (others => '0');
       end if;
-      
-      if (i_space = '1') then
-        o_morse <= std_logic_vector(sig_morse);
-        o_read <= '1';                      -- LETTER is completed (init read stage)
-        
-        sig_counter <= (others => '0');     -- Reset all values
-        sig_morse <= (others => '0');
-        sig_cnt <= 0;
-        -- TODO: use only o_cnt
-        o_cnt <= std_logic_vector(to_unsigned(sig_cnt, 3)); 
+
+      if (i_space = '1' and sig_read = '0') then
+        -- LETTER is completed (init read stage)
+        o_morse  <= std_logic_vector(sig_morse);
+        o_cnt    <= std_logic_vector(to_unsigned(sig_cnt, 3));
+        o_read   <= '1';
+        sig_read <= '1';
+
+        -- Reset all values
+        sig_counter <= (others => '0');
+        sig_morse   <= (others => '0');
+        sig_cnt     <= 0;
       end if;
-      
     end if;
 
   end process p_clk_enable;
+
 end architecture behavioral;

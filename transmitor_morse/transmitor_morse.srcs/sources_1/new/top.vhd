@@ -48,15 +48,15 @@ begin
   --------------------------------------------------------
   -- Instance (copy) of clock_enable entity
   --------------------------------------------------------
-  period_cnt0 : entity work.period_cnt
-      generic map(
-          g_MAX => 5
-      )
-      port map(
-          clk => CLK100MHZ,
-          rst => BTNU,
-          input => BTNC,
-          cnt  => sig_cnt_32bit
-      );
+--    period_cnt0 : entity work.period_cnt
+--        generic map(
+--            g_dot_length => 5
+--        )
+--        port map(
+--            clk => CLK100MHZ,
+--            rst => BTNU,
+--            input => BTNC,
+--            cnt  => sig_cnt_32bit
+--        );
 
 end Behavioral;
