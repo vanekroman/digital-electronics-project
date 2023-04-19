@@ -12,7 +12,7 @@
 
 ## Popis hardwaru
 ![Period check](doc/period_cnt.svg)
-<img src="doc/period_cnt.svg" alt="Period check" style="background-color:white;">
+<img src="doc/period_cnt.svg" alt="Period check" style="background-color:white">
 
 
 ## Popis softwaru
