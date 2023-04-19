@@ -11,7 +11,7 @@
 ![image](https://github.com/vanekroman/digital-electronics-project/blob/main/Morse_abeceda.png)
 
 ## Popis hardwaru
-
+![Period check](doc/period_cnt.svg)
 ## Popis softwaru
 ### Simulace
 
