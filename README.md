@@ -12,6 +12,7 @@
 
 ## Popis hardwaru
 ![Period check](doc/period_cnt.svg)
+<img src="doc/period_cnt.svg">
 ## Popis softwaru
 ### Simulace
 
