@@ -1,7 +1,7 @@
-
+-- vsg_off
 ----------------------------------------------------------
 --
---! @title Clock enable
+--! @title Morse Code Transmitter
 --! @author Roman Vanek
 --!
 --! @copyright (c) 2023 Roman Vanek
@@ -26,7 +26,7 @@ library ieee;
 -- Entity declaration for clock enable
 ----------------------------------------------------------
 
-entity period_cnt is
+entity morse_transmitter is
   generic (
     g_dot_length : natural := 5 --! Number of clk pulses to generate one enable signal period
   );
@@ -38,13 +38,13 @@ entity period_cnt is
     o_cnt   : out   std_logic_vector(2 downto 0); -- Number of o_morse bits to read 0 - 4
     o_read  : out   std_logic
   );
-end entity period_cnt;
+end entity morse_transmitter;
 
 ------------------------------------------------------------
 -- Architecture body for clock enable
 ------------------------------------------------------------
 
-architecture behavioral of period_cnt is
+architecture behavioral of morse_transmitter is
 
   -- Local counter
   signal sig_counter : unsigned(31 downto 0) := (others => '0'); --! Local counter
