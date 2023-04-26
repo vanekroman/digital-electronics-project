@@ -45,7 +45,8 @@ entity top is
         CF          : out std_logic;
         CG          : out std_logic;
         AN          : out std_logic_vector(7 downto 0);
-        JA1         : in std_logic
+        JA1         : in std_logic;
+        JA2         : out std_logic
     );
 end top;
 architecture Behavioral of top is
@@ -53,7 +54,7 @@ architecture Behavioral of top is
   -- Counter constants
   constant c_clk_max    : natural := 1000000;   -- 10 ms
 
-  constant c_cnt_length : natural := 30; -- > 300 ms => DASH 
+  constant c_cnt_length : natural := 6; -- > 300 ms => DASH 
 
   signal sig_clk     : std_logic;                    -- Main clock
 
@@ -115,6 +116,8 @@ begin
     );
     
    AN <= b"1111_1110";
+   
+   JA2 <= sig_clk;
 
 
 end Behavioral;

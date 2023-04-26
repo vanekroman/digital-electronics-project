@@ -68,13 +68,15 @@ begin
           case i_morse is
             when "0000" =>
               o_char <= 'E';
+              o_7seg <= "0110000"; -- E
 
             when "0001" =>
               o_char <= 'T';
+              o_7seg <= "1110000"; -- T
 
             when others =>
               o_char <= 'e';    -- ERROR
-              o_7seg <= "0111000"; -- F
+              o_7seg <= "0010010"; -- 2
 
           end case;
 
@@ -91,13 +93,15 @@ begin
 
             when "0010" =>
               o_char <= 'N';
+              o_7seg <= "0001001"; -- N
 
             when "0011" =>
               o_char <= 'M';
+              o_7seg <= "0101011"; -- M
 
             when others =>
               o_char <= 'e';    -- ERROR
-              o_7seg <= "0111000"; -- F
+              o_7seg <= "0010010"; -- 2 
 
           end case;
 
@@ -107,18 +111,23 @@ begin
 
             when "0000" =>
               o_char <= 'S';
+              o_7seg <= "0100100"; -- S
 
             when "0001" =>
               o_char <= 'U';
+              o_7seg <= "1000001"; -- U
 
             when "0010" =>
               o_char <= 'R';
+              o_7seg <= "0011001"; -- R
 
             when "0011" =>
               o_char <= 'W';
+              o_7seg <= "1010101"; -- W
 
             when "0100" =>
               o_char <= 'D';
+              o_7seg <= "1000010"; -- D
 
             when "0101" =>
               o_char <= 'K';
@@ -126,13 +135,15 @@ begin
 
             when "0110" =>
               o_char <= 'G';
+              o_7seg <= "0100001"; -- G
 
             when "0111" =>
               o_char <= 'O';
+              o_7seg <= "0000001"; -- O
 
             when others =>
               o_char <= 'e';    -- ERROR
-              o_7seg <= "0111000"; -- F
+              o_7seg <= "0010010"; -- 2 
 
           end case;
         
@@ -142,30 +153,39 @@ begin
 
             when "0000" =>
               o_char <= 'H';
+              o_7seg <= "1101000"; -- H
 
             when "0001" =>
               o_char <= 'V';
+              o_7seg <= "1000101"; -- V
 
             when "0010" =>
               o_char <= 'F';
+              o_7seg <= "0111000"; -- F
 
             when "0011" =>
               o_char <= '_';
+              o_7seg <= "1110111"; -- _ 
 
             when "0100" =>
               o_char <= 'L';
+              o_7seg <= "1110001"; -- L
 
             when "0101" =>
               o_char <= '_';
+              o_7seg <= "1110111"; -- _ 
 
             when "0110" =>
               o_char <= 'P';
+              o_7seg <= "0011000"; -- P
 
             when "0111" =>
               o_char <= 'J';
+              o_7seg <= "1000011"; -- J
 
             when "1000" =>
               o_char <= 'B';
+              o_7seg <= "1100000"; -- B
 
             when "1001" =>
               o_char <= 'X';
@@ -173,31 +193,37 @@ begin
 
             when "1010" =>
               o_char <= 'C';
+              o_7seg <= "0110001"; -- C
 
             when "1011" =>
               o_char <= 'Y';
+              o_7seg <= "1000100"; -- Y
 
             when "1100" =>
               o_char <= 'Z';
+              o_7seg <= "0010110"; -- Z
 
             when "1101" =>
               o_char <= 'Q';
+              o_7seg <= "0001100"; -- Q
 
             when "1110" =>
               o_char <= '_';
+              o_7seg <= "1110111"; -- _ 
 
             when "1111" =>
               o_char <= '_';
+              o_7seg <= "1110111"; -- _ 
 
             when others =>
               o_char <= 'e';    -- ERROR
-              o_7seg <= "0111000"; -- F
+              o_7seg <= "0010010"; -- 2 
 
           end case;
 
         when others =>
-          o_char <= 'P';    -- ERROR
-          o_7seg <= "0111000"; -- F
+              o_char <= 'e';    -- ERROR
+              o_7seg <= "0010010"; -- 2 
 
       end case;
 
