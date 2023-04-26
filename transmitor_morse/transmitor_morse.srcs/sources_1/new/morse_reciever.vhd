@@ -32,7 +32,7 @@ entity morse_reciever is
     i_cnt   : in    std_logic_vector(2 downto 0); -- Number of o_morse bits to read 0 - 4
     i_read  : in    std_logic;
     o_char  : out   character;
-    o_ascii : out   std_logic_vector(7 downto 0)
+    o_7seg  : out   std_logic_vector(6 downto 0)
   );
 end entity morse_reciever;
 
@@ -43,8 +43,8 @@ end entity morse_reciever;
 architecture behavioral of morse_reciever is
 
   -- Local counter
-  signal sig_row    : natural := 0;
-  signal sig_column : natural := 0;
+  --signal sig_row    : unsigned := 0;
+  --signal sig_column : unsigned := 0;
 
 begin
 
@@ -58,139 +58,146 @@ begin
 
     if rising_edge(i_read) then
 
-      sig_column <= to_integer(unsigned(i_cnt));
-      sig_row <= to_integer(unsigned(i_morse));
+      --sig_column <= unsigned(i_cnt);
+      --sig_row <= unsigned(i_morse);
 
-      case sig_column is
+      case i_cnt is
 
-        when 1 =>
+        when "001" =>
 
-          case sig_row is
-            when 0 =>
+          case i_morse is
+            when "0000" =>
               o_char <= 'E';
-              o_ascii <= std_logic_vector(to_unsigned(69, 7));
 
-            when 1 =>
+            when "0001" =>
               o_char <= 'T';
 
             when others =>
               o_char <= 'e';    -- ERROR
+              o_7seg <= "0111000"; -- F
 
           end case;
 
-        when 2 =>
+        when "010" =>
 
-          case sig_row is
-            when 0 =>
+          case i_morse is
+            when "0000" =>
               o_char <= 'I';
+              o_7seg <= "1111001"; -- I
 
-            when 1 =>
+            when "0001" =>
               o_char <= 'A';
+              o_7seg <= "0001000"; -- A
 
-            when 2 =>
+            when "0010" =>
               o_char <= 'N';
 
-            when 3 =>
+            when "0011" =>
               o_char <= 'M';
 
             when others =>
               o_char <= 'e';    -- ERROR
+              o_7seg <= "0111000"; -- F
 
           end case;
 
-        when 3 =>
+        when "011" =>
 
-          case sig_row is
+          case i_morse is
 
-            when 0 =>
+            when "0000" =>
               o_char <= 'S';
 
-            when 1 =>
+            when "0001" =>
               o_char <= 'U';
 
-            when 2 =>
+            when "0010" =>
               o_char <= 'R';
 
-            when 3 =>
+            when "0011" =>
               o_char <= 'W';
 
-            when 4 =>
+            when "0100" =>
               o_char <= 'D';
 
-            when 5 =>
+            when "0101" =>
               o_char <= 'K';
+              o_7seg <= "0101000"; -- K
 
-            when 6 =>
+            when "0110" =>
               o_char <= 'G';
 
-            when 7 =>
+            when "0111" =>
               o_char <= 'O';
 
             when others =>
               o_char <= 'e';    -- ERROR
+              o_7seg <= "0111000"; -- F
 
           end case;
         
-        when 4 =>
+        when "100" =>
         
-          case sig_row is
+          case i_morse is
 
-            when 0 =>
+            when "0000" =>
               o_char <= 'H';
 
-            when 1 =>
+            when "0001" =>
               o_char <= 'V';
 
-            when 2 =>
+            when "0010" =>
               o_char <= 'F';
 
-            when 3 =>
+            when "0011" =>
               o_char <= '_';
 
-            when 4 =>
+            when "0100" =>
               o_char <= 'L';
 
-            when 5 =>
+            when "0101" =>
               o_char <= '_';
 
-            when 6 =>
+            when "0110" =>
               o_char <= 'P';
 
-            when 7 =>
+            when "0111" =>
               o_char <= 'J';
 
-            when 8 =>
+            when "1000" =>
               o_char <= 'B';
 
-            when 9 =>
+            when "1001" =>
               o_char <= 'X';
-              o_ascii <= std_logic_vector(to_unsigned(88, 7));
+              o_7seg <= "1001000"; -- X
 
-            when 10 =>
+            when "1010" =>
               o_char <= 'C';
 
-            when 11 =>
+            when "1011" =>
               o_char <= 'Y';
 
-            when 12 =>
+            when "1100" =>
               o_char <= 'Z';
 
-            when 13 =>
+            when "1101" =>
               o_char <= 'Q';
 
-            when 14 =>
+            when "1110" =>
               o_char <= '_';
 
-            when 15 =>
+            when "1111" =>
               o_char <= '_';
 
             when others =>
               o_char <= 'e';    -- ERROR
+              o_7seg <= "0111000"; -- F
 
           end case;
 
         when others =>
-          o_char <= 'e';    -- ERROR
+          o_char <= 'P';    -- ERROR
+          o_7seg <= "0111000"; -- F
 
       end case;
 
