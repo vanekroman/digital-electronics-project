@@ -19,7 +19,7 @@ V Morseově kódu jsme našli algoritmus podle kterého jsme postupovali. Z teč
 ![Period check](doc/period_cnt.svg)    
 
 ## Popis softwaru
-
+### Rozlišování periody
 ```vhdl
 architecture behavioral of period_cnt is
 
@@ -77,5 +77,31 @@ begin
 
 end architecture behavioral;
 ```
+### Pťijímač morzeova kódu
+```vhdl
+  p_morse_reciever : process (i_read, i_morse, i_cnt) is
+  begin
 
+    if rising_edge(i_read) then
+
+      --sig_column <= unsigned(i_cnt);
+      --sig_row <= unsigned(i_morse);
+
+      case i_cnt is
+
+        when "001" =>
+
+          case i_morse is
+            when "0000" =>
+              o_char <= 'E';
+              o_7seg <= "0110000"; -- E
+
+            when "0001" =>
+              o_char <= 'T';
+              o_7seg <= "1110000"; -- T
+
+            when others =>
+              o_char <= 'e';    -- ERROR
+              o_7seg <= "0010010"; -- 2
+```
 ### Simulace
