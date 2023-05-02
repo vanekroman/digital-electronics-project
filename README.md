@@ -103,5 +103,8 @@ end architecture behavioral;
             when others =>
               o_char <= 'e';    -- ERROR
               o_7seg <= "0010010"; -- 2
+  .
+  .
+  .
 ```
 ### Simulace
