@@ -23,7 +23,7 @@ library ieee;
   use ieee.numeric_std.all; -- Package for arithmetic operations
 
 ----------------------------------------------------------
--- Entity declaration for clock enable
+-- Entity declaration for period counter
 ----------------------------------------------------------
 
 entity period_cnt is
@@ -41,25 +41,28 @@ entity period_cnt is
 end entity period_cnt;
 
 ------------------------------------------------------------
--- Architecture body for clock enable
+-- Architecture body for period counter
 ------------------------------------------------------------
 
 architecture behavioral of period_cnt is
 
   -- Local counter
-  signal sig_counter : unsigned(31 downto 0) := (others => '0'); --! Local counter
-  signal sig_morse   : unsigned(3 downto 0)  := (others => '0'); --! Local counter
+  signal sig_counter : unsigned(31 downto 0) := (others => '0');
+  signal sig_morse   : unsigned(3 downto 0)  := (others => '0'); 
   signal sig_cnt     : natural               := 0;               --! Local counter
   signal sig_read    : std_logic             := '0';
 
 begin
 
   --------------------------------------------------------
-  -- p_clk_enable:
-  -- Generate clock enable signal. By default, enable signal
-  -- is low and generated pulse is always one clock long.
+  -- p_period_cnt:
+  -- Local counter is active high. When i_logic is released,
+  -- DASH or DOT is assigned to sig_morse at coresponding index.
+  -- Output variables o_morse, o_cnt are enabled when i_space is
+  -- HIGH (representing space between characters), this event
+  -- is signalized by o_read
   --------------------------------------------------------
-  p_clk_enable : process (clk) is
+  p_period_cnt : process (clk) is
   begin
 
     if rising_edge(clk) then                                   -- Synchronous process
@@ -93,6 +96,6 @@ begin
       end if;
     end if;
 
-  end process p_clk_enable;
+  end process p_period_cnt;
 
 end architecture behavioral;

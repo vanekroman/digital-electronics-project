@@ -7,11 +7,9 @@
 --! @copyright (c) 2023 Roman Vanek
 --! This work is licensed under the terms of the MIT license
 --!
---! Counting period of input signal i_logic then assigns it either '0' or '1'
---! if it is shorter then g_dot_length respectively longer then g_dot_length.
---! Output will be provided when i_space changes to '1' as n-bit value of o_morse.
---! n (number of bits to read) is stored in o_cnt
---! !! Read output values only when o_read is '1' !!
+--! On rising edge of i_read, it assign defined segments on 7 segment
+--! display coresponding to i_morse and i_cnt.
+--! It assumes 7 segment with active zero logic.
 --
 -- Hardware: Nexys A7-50T, xc7a50ticsg324-1L
 -- Software: TerosHDL, Vivado 2020.2, EDA Playground
@@ -48,12 +46,7 @@ architecture behavioral of morse_reciever is
 
 begin
 
-  --------------------------------------------------------
-  -- p_clk_enable:
-  -- Generate clock enable signal. By default, enable signal
-  -- is low and generated pulse is always one clock long.
-  --------------------------------------------------------
-  p_morse_reciever : process (i_read, i_morse, i_read) is
+  p_morse_reciever : process (i_read, i_morse, i_cnt) is
   begin
 
     if rising_edge(i_read) then
