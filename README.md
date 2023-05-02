@@ -10,6 +10,8 @@
 
 ![image](https://github.com/vanekroman/digital-electronics-project/blob/main/Morse_abeceda.png)
 
+V Morseově kódu jsme našli algoritmus podle kterého jsme postupovali. Z teček jsme udělali logickou 0, z čárek logickou 1. Dále jsme pak počítali počet stisknutí buttonu. Z binárního kódu jsme udělali dekadické číslo. Počet zmáčknutí číselně odpovídal sloupci s abecedou. Dekadický kód byl dále určitý znak, který jsme indexovali od 0. 
+
 ### 7-segment abeceda
 ![image](7_seg_alphabet.jpg)
 
