@@ -13,7 +13,7 @@
 ### 7-segment abeceda
 ![image](7_seg_alphabet.jpg)
 
-### Popis hardwaru
+## Popis hardwaru
 ![Period check](doc/period_cnt.svg)    
 
 ## Popis softwaru
