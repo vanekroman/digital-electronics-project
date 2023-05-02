@@ -17,7 +17,6 @@
 ![Period check](doc/period_cnt.svg)    
 
 ## Popis softwaru
-architecture behavioral of period_cnt is
 
 ```vhdl
   -- Local counter
