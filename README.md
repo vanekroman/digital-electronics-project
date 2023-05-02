@@ -72,6 +72,3 @@ begin
 ```
 
 ### Simulace
-
-## Reference
-
