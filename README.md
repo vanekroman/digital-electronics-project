@@ -11,7 +11,7 @@
 ![image](https://github.com/vanekroman/digital-electronics-project/blob/main/Morse_abeceda.png)
 
 ## 7-segment abeceda
-![image](7_seg alphabet.jpg)
+![image](7_seg_alphabet.jpg)
 
 ## Popis hardwaru
 ![Period check](doc/period_cnt.svg)    
