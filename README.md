@@ -216,4 +216,5 @@ end architecture behavioral;
   .
 ```
 ### Simulace
+Na simulaci můžeme vidět JA1 jako tlačítko (morseúv kód), sig_clk je časový signál pro čítač periody daný z hlavního poděleného 100 MHz časového signálu. Samotný výstup se rozliší po stisknutí BTNC, reprezentující "mezeru" mezi písmeny.
 ![image](doc/sim_top.png)

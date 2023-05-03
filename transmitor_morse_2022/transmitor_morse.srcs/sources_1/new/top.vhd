@@ -1,17 +1,23 @@
 -- vsg_off
-----------------------------------------------------------
---
---! @title Clock enable
---! @author Roman Vanek
---!
---! @copyright (c) 2023 Roman Vanek
---! This work is licensed under the terms of the MIT license
---!
---
--- Hardware: Nexys A7-50T, xc7a50ticsg324-1L
--- Software: TerosHDL, Vivado 2020.2, EDA Playground
---
-----------------------------------------------------------
+----------------------------------------------------------------------------------
+-- Company: 
+-- Engineer: 
+-- 
+-- Create Date: 04/05/2023 11:46:25 AM
+-- Design Name: 
+-- Module Name: top - Behavioral
+-- Project Name: 
+-- Target Devices: 
+-- Tool Versions: 
+-- Description: 
+-- 
+-- Dependencies: 
+-- 
+-- Revision:
+-- Revision 0.01 - File Created
+-- Additional Comments:
+-- 
+----------------------------------------------------------------------------------
 
 
 library IEEE;
@@ -59,6 +65,8 @@ architecture Behavioral of top is
 
 begin
 
+  -- Connecting testbench signals with tb_period_cnt
+  -- entity (Unit Under Test)
   uut_period_cnt1 : entity work.period_cnt
     generic map (
       g_dot_length => c_cnt_length
@@ -98,6 +106,7 @@ begin
     );
     
    AN <= b"1111_1110";
+   --AN <= (b"1111_1110" and (sig_clk_7seg)) or (b"1111_1110");
    
    JA2 <= sig_clk;
 
