@@ -59,7 +59,7 @@ V Morseově kódu jsme našli algoritmus podle kterého jsme postupovali. Z teč
 ## Processes
 - p_period_cnt: ( clk )
 
-
+<div style="background-color: beige; padding: 10px">
 # Morse Code Reciever
 
 - **File**: morse_reciever.vhd
