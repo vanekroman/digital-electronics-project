@@ -128,6 +128,7 @@ begin
     JA1 <= '0';
 
     -- 1 DASH
+    wait for 100 ms;
     JA1 <= '1';
     wait for 600 ms;
     JA1 <= '0';
@@ -154,6 +155,8 @@ begin
 
     -- FINISH
     wait for 2000 ms;
+    
+    wait for 1000 ms;
 
     wait;
   -- Data generation process is suspended forever
