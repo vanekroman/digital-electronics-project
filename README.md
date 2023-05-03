@@ -8,12 +8,12 @@
 ## Teoretický úvod
 :blue_square: 1 ČÁRKA     :yellow_square: 0 TEČKA
 
-![image](https://github.com/vanekroman/digital-electronics-project/blob/main/Morse_abeceda.png)
+![image](doc/Morse_abeceda.png)
 
 V Morseově kódu jsme našli algoritmus podle kterého jsme postupovali. Z teček jsme udělali logickou 0, z čárek logickou 1. Dále jsme pak počítali počet stisknutí buttonu. Z daného binárního kódu jsme udělali dekadické číslo. Počet zmáčknutí číselně odpovídal abecednímu sloupci. Dekadický kód byl dále určitý znak, který jsme indexovali od 0. Jednotlivá písmena jsme zobrazovali na 7-segmentovém displeji. 
 
 ### 7-segment abeceda
-![image](7_seg_alphabet.jpg)
+![image](doc/7_seg_alphabet.jpg)
 
 ## Popis hardwaru
 ![Period check](doc/period_cnt.svg)    
@@ -216,3 +216,4 @@ end architecture behavioral;
   .
 ```
 ### Simulace
+![image](doc/sim_top.png)

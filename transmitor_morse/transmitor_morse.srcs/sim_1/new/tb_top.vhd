@@ -52,8 +52,6 @@ architecture testbench of tb_top is
     signal sig_o_cnt   : std_logic_vector(2 downto 0); -- Number of o_morse bits to read 0 - 4
     signal sig_o_read  : std_logic;
     
-    signal sig_asdasdad    : std_logic_vector(6 downto 0);
-    
     signal sig_o_char  : character;
 
 begin
@@ -86,13 +84,6 @@ begin
       o_7seg(2) => CE,
       o_7seg(1) => CF,
       o_7seg(0) => CG
-    );
-    
-  uut_char_7seg : entity work.char_7seg
-    port map (
-      i_blank => '0',
-      i_char  => sig_o_char,
-      o_seg => sig_asdasdad
     );
 
   uut_clock_enable : entity work.clock_enable
