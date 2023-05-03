@@ -22,7 +22,7 @@ V Morseově kódu jsme našli algoritmus podle kterého jsme postupovali. Z teč
 - **File**: top.vhd
 ## Diagram
 
-![Diagram](top.svg "Diagram")
+![Diagram](doc/top.svg "Diagram")
 ## Ports
 
 | Port name | Direction | Type                         | Description |
