@@ -25,7 +25,7 @@ V Morseově kódu jsme našli algoritmus podle kterého jsme postupovali. Z teč
 - **File**: top.vhd
 ## Diagram
 
-![Diagram](top.svg "Diagram")
+![Diagram](doc/top.svg "Diagram")
 ## Ports
 
 | Port name | Direction | Type                         | Description |
@@ -73,7 +73,7 @@ V Morseově kódu jsme našli algoritmus podle kterého jsme postupovali. Z teč
 - **Author:** Roman Vanek
 ## Diagram
 
-![Diagram](period_cnt.svg "Diagram")
+![Diagram](doc/period_cnt.svg "Diagram")
 ## Description
 
  Counting period of input signal i_logic then assigns it either '0' or '1'
@@ -118,7 +118,7 @@ V Morseově kódu jsme našli algoritmus podle kterého jsme postupovali. Z teč
 - **Author:** Roman Vanek
 ## Diagram
 
-![Diagram](morse_reciever.svg "Diagram")
+![Diagram](doc/morse_reciever.svg "Diagram")
 ## Description
 
  On i_read, it assign defined segments on 7 segment
