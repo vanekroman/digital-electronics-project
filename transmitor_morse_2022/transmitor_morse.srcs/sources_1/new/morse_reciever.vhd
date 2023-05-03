@@ -80,7 +80,7 @@ begin
               o_char <= 'I';
               o_7seg <= "1111001"; -- I
 
-            when "0001" =>
+            when "0010" =>
               o_char <= 'A';
               o_7seg <= "0001000"; -- A
 
@@ -106,7 +106,7 @@ begin
               o_char <= 'S';
               o_7seg <= "0100100"; -- S
 
-            when "0001" =>
+            when "0100" =>
               o_char <= 'U';
               o_7seg <= "1000001"; -- U
 
@@ -114,11 +114,11 @@ begin
               o_char <= 'R';
               o_7seg <= "0011001"; -- R
 
-            when "0011" =>
+            when "0110" =>
               o_char <= 'W';
               o_7seg <= "1010101"; -- W
 
-            when "0100" =>
+            when "0001" =>
               o_char <= 'D';
               o_7seg <= "1000010"; -- D
 
@@ -126,7 +126,7 @@ begin
               o_char <= 'K';
               o_7seg <= "0101000"; -- K
 
-            when "0110" =>
+            when "0011" =>
               o_char <= 'G';
               o_7seg <= "0100001"; -- G
 
@@ -148,23 +148,23 @@ begin
               o_char <= 'H';
               o_7seg <= "1101000"; -- H
 
-            when "0001" =>
+            when "1000" =>
               o_char <= 'V';
               o_7seg <= "1000101"; -- V
 
-            when "0010" =>
+            when "0100" =>
               o_char <= 'F';
               o_7seg <= "0111000"; -- F
 
-            when "0011" =>
+            when "1100" =>
               o_char <= '_';
               o_7seg <= "1110111"; -- _ 
 
-            when "0100" =>
+            when "0010" =>
               o_char <= 'L';
               o_7seg <= "1110001"; -- L
 
-            when "0101" =>
+            when "1010" =>
               o_char <= '_';
               o_7seg <= "1110111"; -- _ 
 
@@ -172,11 +172,11 @@ begin
               o_char <= 'P';
               o_7seg <= "0011000"; -- P
 
-            when "0111" =>
+            when "1110" =>
               o_char <= 'J';
               o_7seg <= "1000011"; -- J
 
-            when "1000" =>
+            when "0001" =>
               o_char <= 'B';
               o_7seg <= "1100000"; -- B
 
@@ -188,19 +188,19 @@ begin
               o_char <= 'C';
               o_7seg <= "0110001"; -- C
 
-            when "1011" =>
+            when "1101" =>
               o_char <= 'Y';
               o_7seg <= "1000100"; -- Y
 
-            when "1100" =>
+            when "0011" =>
               o_char <= 'Z';
               o_7seg <= "0010110"; -- Z
 
-            when "1101" =>
+            when "1011" =>
               o_char <= 'Q';
               o_7seg <= "0001100"; -- Q
 
-            when "1110" =>
+            when "0111" =>
               o_char <= '_';
               o_7seg <= "1110111"; -- _ 
 
