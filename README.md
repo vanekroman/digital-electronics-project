@@ -308,7 +308,7 @@ Konečná impementace bere 2s za poslední sestupnou hranou jako mezeru mezi pí
 
 ![image](doc/sim_top.png)
 
-Impementace pomocí NEXYS A7 jako přijímače a Arduino UNO jako vysílače Morzeova kódu
+Implementace pomocí NEXYS A7-50T jako přijímače a Arduino UNO jako vysílače Morzeova kódu
 
 ![image](doc/FPGA_new.jpeg)
 
