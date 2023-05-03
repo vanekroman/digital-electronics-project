@@ -84,7 +84,7 @@ begin
               o_char <= 'A';
               o_7seg <= "0001000"; -- A
 
-            when "0010" =>
+            when "0001" =>
               o_char <= 'N';
               o_7seg <= "0001001"; -- N
 

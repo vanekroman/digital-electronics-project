@@ -45,8 +45,7 @@ entity top is
         CF          : out std_logic;
         CG          : out std_logic;
         AN          : out std_logic_vector(7 downto 0);
-        JA1         : in std_logic;
-        JA2         : out std_logic
+        JA1         : in std_logic
     );
 end top;
 architecture Behavioral of top is
@@ -106,9 +105,6 @@ begin
     );
     
    AN <= b"1111_1110";
-   --AN <= (b"1111_1110" and (sig_clk_7seg)) or (b"1111_1110");
-   
-   JA2 <= sig_clk;
 
 
 end Behavioral;
