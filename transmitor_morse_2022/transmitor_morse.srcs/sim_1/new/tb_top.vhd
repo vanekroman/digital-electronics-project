@@ -29,7 +29,6 @@ end entity tb_top;
 architecture testbench of tb_top is
 
     signal CLK100MHZ   : std_logic;
-    signal BTNC        : std_logic;
     signal CA          : std_logic;
     signal CB          : std_logic;
     signal CC          : std_logic;
@@ -68,7 +67,6 @@ begin
     )
     port map (
       clk     => sig_clk,
-      i_space => BTNC,
       i_logic => JA1,
       o_morse => sig_o_morse,
       o_cnt   => sig_o_cnt,
@@ -88,13 +86,6 @@ begin
       o_7seg(2) => CE,
       o_7seg(1) => CF,
       o_7seg(0) => CG
-    );
-    
-  uut_char_7seg : entity work.char_7seg
-    port map (
-      i_blank => '0',
-      i_char  => sig_o_char,
-      o_seg => sig_asdasdad
     );
 
   uut_clock_enable : entity work.clock_enable
@@ -133,8 +124,7 @@ begin
   begin
   
     AN <= b"1111_1110";
-
-    BTNC <= '0';
+    
     JA1 <= '0';
 
     -- 1 DASH
@@ -163,16 +153,7 @@ begin
    
 
     -- FINISH
-    wait for 50 ms;
-    BTNC <= '1';
-    wait for 200 ms;
-    BTNC <= '0';
-    wait for 200 ms;
-    BTNC <= '1';
-    wait for 200 ms;
-    BTNC <= '0';
-
-
+    wait for 2000 ms;
 
     wait;
   -- Data generation process is suspended forever

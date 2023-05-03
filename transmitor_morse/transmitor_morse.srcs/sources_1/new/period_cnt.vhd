@@ -33,7 +33,6 @@ entity period_cnt is
   );
   port (
     clk     : in    std_logic;                    -- Main clock
-    i_space : in    std_logic;                    -- Button for next letter
     i_logic : in    std_logic;                    -- Button for morse code input
     o_morse : out   std_logic_vector(3 downto 0); -- Full morse code in respect to o_cnt!
     o_cnt   : out   std_logic_vector(2 downto 0); -- Number of o_morse bits to read 0 - 4
@@ -86,7 +85,7 @@ begin
       else
         sig_counter_0 <= sig_counter_0 + 1;
         
-        if (sig_counter_0 > g_space_length and sig_read = '0') then
+        if (sig_counter_0 > g_space_length and sig_read = '0') then -- SPACE between charecters
             o_morse  <= std_logic_vector(sig_morse);
             o_cnt    <= std_logic_vector(to_unsigned(sig_cnt, 3));
             o_read   <= '1';

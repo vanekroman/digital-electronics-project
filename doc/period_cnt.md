@@ -25,7 +25,6 @@
 | Port name | Direction | Type                         | Description |
 | --------- | --------- | ---------------------------- | ----------- |
 | clk       | in        | std_logic                    |             |
-| i_space   | in        | std_logic                    |             |
 | i_logic   | in        | std_logic                    |             |
 | o_morse   | out       | std_logic_vector(3 downto 0) |             |
 | o_cnt     | out       | std_logic_vector(2 downto 0) |             |

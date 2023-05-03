@@ -36,7 +36,6 @@ entity top is
     Port 
     ( 
         CLK100MHZ   : in std_logic;
-        BTNC        : in std_logic;
         CA          : out std_logic;
         CB          : out std_logic;
         CC          : out std_logic;
@@ -74,7 +73,6 @@ begin
     )
     port map (
       clk     => sig_clk,
-      i_space => BTNC,
       i_logic => JA1,
       o_morse => sig_o_morse,
       o_cnt   => sig_o_cnt,
