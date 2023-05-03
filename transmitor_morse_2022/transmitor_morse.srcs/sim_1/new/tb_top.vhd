@@ -41,8 +41,10 @@ architecture testbench of tb_top is
     signal JA1         : std_logic; 
 
     -- Counter constants
-    constant c_clk_max    : natural := 1000000; -- 10 ms
-    constant c_clk_period : time    := 10 ns; -- 100 MHz
+    --constant c_clk_max    : natural := 1000000; -- 10 ms
+    --constant c_clk_period : time    := 10 ns; -- 100 MHz
+    constant c_clk_max    : natural := 10; -- 10 ms
+    constant c_clk_period : time    := 1 ms;
     
     constant c_cnt_length : natural := 30; -- > 300 ms => DASH 
     
@@ -136,7 +138,6 @@ begin
     JA1 <= '0';
 
     -- 1 DASH
-    wait for 200 ms;
     JA1 <= '1';
     wait for 600 ms;
     JA1 <= '0';
@@ -162,10 +163,15 @@ begin
    
 
     -- FINISH
+    wait for 50 ms;
+    BTNC <= '1';
+    wait for 200 ms;
+    BTNC <= '0';
     wait for 200 ms;
     BTNC <= '1';
-    wait for 600 ms;
+    wait for 200 ms;
     BTNC <= '0';
+
 
 
     wait;

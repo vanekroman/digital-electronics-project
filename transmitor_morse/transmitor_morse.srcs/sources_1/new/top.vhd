@@ -37,7 +37,6 @@ entity top is
     ( 
         CLK100MHZ   : in std_logic;
         BTNC        : in std_logic;
-        BTNU        : in std_logic;
         CA          : out std_logic;
         CB          : out std_logic;
         CC          : out std_logic;
@@ -54,18 +53,13 @@ architecture Behavioral of top is
 
   -- Counter constants
   constant c_clk_max    : natural := 1000000;   -- 10 ms
-  constant c_clk_7seg   : natural := 1000000;   -- 10 ms
-
-  constant c_cnt_length : natural := 6; -- > 300 ms => DASH 
+  constant c_cnt_length : natural := 30; -- > 300 ms => DASH 
 
   signal sig_clk      : std_logic;                    -- Main clock
-  signal sig_clk_7seg : std_logic;
 
   signal sig_o_morse : std_logic_vector(3 downto 0); -- Full morse code in respect to o_cnt!
   signal sig_o_cnt   : std_logic_vector(2 downto 0); -- Number of o_morse bits to read 0 - 4
   signal sig_o_read  : std_logic;
-  
-  signal sig_asdasdad    : std_logic_vector(6 downto 0);
 
   signal sig_o_char  : character;
 
@@ -110,19 +104,9 @@ begin
       rst => '0',
       ce  => sig_clk
     );
-
-  uut_clock_enable_7seg : entity work.clock_enable
-    generic map (
-      g_max => c_clk_7seg
-    )
-    port map (
-      clk => CLK100MHZ,
-      rst => '0',
-      ce  => sig_clk_7seg
-    );
     
    AN <= b"1111_1110";
-   AN <= (b"1111_1110" and (sig_clk_7seg)) or (b"1111_1110");
+   --AN <= (b"1111_1110" and (sig_clk_7seg)) or (b"1111_1110");
    
    JA2 <= sig_clk;
 
