@@ -12,7 +12,7 @@ transmitor_morse_2022 pro Vivado 2022
 
 ![image](doc/Morse_abeceda.png)
 
-V Morseově kódu jsme našli algoritmus podle kterého jsme postupovali. Z teček jsme udělali logickou 0, z čárek logickou 1. Dále jsme pak počítali počet stisknutí buttonu. Z daného binárního kódu jsme udělali dekadické číslo. Počet zmáčknutí číselně odpovídal abecednímu sloupci. Dekadický kód byl dále určitý znak, který jsme indexovali od 0. Jednotlivá písmena jsme zobrazovali na 7-segmentovém displeji. 
+V Morseově kódu jsme našli algoritmus podle kterého jsme postupovali. Z teček jsme udělali logickou 0, z čárek logickou 1. Dále jsme pak počítali počet impulzů. Z daného binárního kódu jsme udělali dekadické číslo. Počet impulzů číselně odpovídal abecednímu sloupci. Dekadický kód byl dále určitý znak, který jsme indexovali od 0. Jednotlivá písmena jsme zobrazovali na 7-segmentovém displeji. 
 
 ### 7-segment abeceda
 ![image](doc/7_seg_alphabet.jpg)
@@ -28,7 +28,7 @@ V Morseově kódu jsme našli algoritmus podle kterého jsme postupovali. Z teč
 ## Diagram
 
 ![Diagram](doc/top.svg "Diagram")
-## Ports
+## Porty
 
 | Port name | Direction | Type                         | Description |
 | --------- | --------- | ---------------------------- | ----------- |
@@ -43,7 +43,7 @@ V Morseově kódu jsme našli algoritmus podle kterého jsme postupovali. Z teč
 | CG        | out       | std_logic                    |             |
 | AN        | out       | std_logic_vector(7 downto 0) |             |
 | JA1       | in        | std_logic                    |             |
-## Signals
+## Signály
 
 | Name        | Type                         | Description |
 | ----------- | ---------------------------- | ----------- |
@@ -52,14 +52,14 @@ V Morseově kódu jsme našli algoritmus podle kterého jsme postupovali. Z teč
 | sig_o_cnt   | std_logic_vector(2 downto 0) |             |
 | sig_o_read  | std_logic                    |             |
 | sig_o_char  | character                    |             |
-## Constants
+## Konstanty
 
 | Name           | Type    | Value   | Description |
 | -------------- | ------- | ------- | ----------- |
 | c_clk_max      | natural | 1000000 |             |
 | c_cnt_length   | natural | 30      |             |
 | c_space_length | natural | 200     |             |
-## Instantiations
+## Instance
 
 - uut_period_cnt1: work.period_cnt
 - uut_morse_reciever: work.morse_reciever
@@ -76,20 +76,19 @@ V Morseově kódu jsme našli algoritmus podle kterého jsme postupovali. Z teč
 ## Diagram
 
 ![Diagram](doc/period_cnt.svg "Diagram")
-## Description
+## Popis
+Počítání periody ze vstupního signálu i_logic, kterému jsme přiřadili logickou '0' nebo '1'.
+Čárku jsme rozpoznávali podle délky a to tak, že když byl delší než g_got_length.
+Výstup čeká do té doby, než vnitřní counter je vetší než g_space_length.
+!! Výstup se zobrazí jedine, pokud je o_read v logické '1' !!
 
- Counting period of input signal i_logic then assigns it either '0' or '1'
- if it is shorter then g_dot_length respectively longer then g_dot_length.
- Output will be provided when i_space changes to '1' as n-bit value of o_morse.
- n (number of bits to read) is stored in o_cnt
- !! Read output values only when o_read is '1' !!
 ## Generics
 
 | Generic name   | Type    | Value | Description      |
 | -------------- | ------- | ----- | ---------------- |
 | g_dot_length   | natural | 30    | dot pulse length |
 | g_space_length | natural | 200   | space length     |
-## Ports
+## Porty
 
 | Port name | Direction | Type                         | Description |
 | --------- | --------- | ---------------------------- | ----------- |
@@ -98,7 +97,7 @@ V Morseově kódu jsme našli algoritmus podle kterého jsme postupovali. Z teč
 | o_morse   | out       | std_logic_vector(3 downto 0) |             |
 | o_cnt     | out       | std_logic_vector(2 downto 0) |             |
 | o_read    | out       | std_logic                    |             |
-## Signals
+## Signály
 
 | Name          | Type                  | Description   |
 | ------------- | --------------------- | ------------- |
@@ -112,7 +111,7 @@ V Morseově kódu jsme našli algoritmus podle kterého jsme postupovali. Z teč
 
 
 
-# Morse Code Reciever
+# Pťijímač Morzeova kódu
 
 - **File**: morse_reciever.vhd
 - **Copyright:** (c) 2023 Roman Vanek
@@ -121,12 +120,12 @@ V Morseově kódu jsme našli algoritmus podle kterého jsme postupovali. Z teč
 ## Diagram
 
 ![Diagram](doc/morse_reciever.svg "Diagram")
-## Description
+## Popis
 
  On i_read, it assign defined segments on 7 segment
  display coresponding to i_morse and i_cnt.
  It assumes 7 segment with active zero logic.
-## Ports
+## Porty
 
 | Port name | Direction | Type                         | Description |
 | --------- | --------- | ---------------------------- | ----------- |
@@ -135,7 +134,7 @@ V Morseově kódu jsme našli algoritmus podle kterého jsme postupovali. Z teč
 | i_read    | in        | std_logic                    |             |
 | o_char    | out       | character                    |             |
 | o_7seg    | out       | std_logic_vector(6 downto 0) |             |
-## Processes
+## Procesy
 - p_morse_reciever: ( i_read, i_morse, i_cnt )
 
 
@@ -269,7 +268,7 @@ end Behavioral;
         end if;
       end if;
 ```
-### Přijímač morzeova kódu
+### Přijímač Morzeova kódu
 ```vhdl
   p_morse_reciever : process (i_read, i_morse, i_cnt) is
   begin
@@ -313,5 +312,9 @@ Konečná impementace bere 2s za poslední sestupnou hranou jako mezeru mezi pí
 ![image](doc/sim_top.png)
 
 Impementace pomocí NEXYS A7 jako přijímače a Arduino UNO jako vysílače Morzeova kódu
+
+![image](doc/fpga.jpg)
+
+Průběh písmena P zobrazen na osciloskopu
 
 ![image](doc/fpga.jpg)
