@@ -30,10 +30,11 @@
 | sig_o_char  | character                    |             |
 ## Constants
 
-| Name         | Type    | Value   | Description |
-| ------------ | ------- | ------- | ----------- |
-| c_clk_max    | natural | 1000000 |             |
-| c_cnt_length | natural | 30      |             |
+| Name           | Type    | Value   | Description |
+| -------------- | ------- | ------- | ----------- |
+| c_clk_max      | natural | 1000000 |             |
+| c_cnt_length   | natural | 30      |             |
+| c_space_length | natural | 200     |             |
 ## Instantiations
 
 - uut_period_cnt1: work.period_cnt

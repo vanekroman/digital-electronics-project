@@ -45,8 +45,7 @@ entity top is
         CF          : out std_logic;
         CG          : out std_logic;
         AN          : out std_logic_vector(7 downto 0);
-        JA1         : in std_logic;
-        JA2         : out std_logic
+        JA1         : in std_logic
     );
 end top;
 architecture Behavioral of top is
@@ -54,6 +53,7 @@ architecture Behavioral of top is
   -- Counter constants
   constant c_clk_max    : natural := 1000000;   -- 10 ms
   constant c_cnt_length : natural := 30; -- > 300 ms => DASH 
+  constant c_space_length : natural := 200; -- > 2 s => SPACE 
 
   signal sig_clk      : std_logic;                    -- Main clock
 
@@ -69,7 +69,8 @@ begin
   -- entity (Unit Under Test)
   uut_period_cnt1 : entity work.period_cnt
     generic map (
-      g_dot_length => c_cnt_length
+      g_dot_length => c_cnt_length,
+      g_space_length => c_space_length
     )
     port map (
       clk     => sig_clk,
@@ -106,9 +107,5 @@ begin
     );
     
    AN <= b"1111_1110";
-   --AN <= (b"1111_1110" and (sig_clk_7seg)) or (b"1111_1110");
-   
-   JA2 <= sig_clk;
-
 
 end Behavioral;

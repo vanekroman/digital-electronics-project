@@ -9,14 +9,7 @@
 ![Diagram](morse_reciever.svg "Diagram")
 ## Description
 
-
- 
-
-
- 
-
-
- On rising edge of i_read, it assign defined segments on 7 segment
+ On i_read, it assign defined segments on 7 segment
  display coresponding to i_morse and i_cnt.
  It assumes 7 segment with active zero logic.
 ## Ports

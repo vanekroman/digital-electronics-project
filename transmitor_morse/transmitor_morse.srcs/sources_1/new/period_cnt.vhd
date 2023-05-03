@@ -28,7 +28,8 @@ library ieee;
 
 entity period_cnt is
   generic (
-    g_dot_length : natural := 5 --! Number of clk pulses to generate one enable signal period
+    g_dot_length : natural := 30; --! dot pulse length
+    g_space_length : natural := 200 --! space length
   );
   port (
     clk     : in    std_logic;                    -- Main clock
@@ -47,10 +48,11 @@ end entity period_cnt;
 architecture behavioral of period_cnt is
 
   -- Local counter
-  signal sig_counter : unsigned(31 downto 0) := (others => '0');
-  signal sig_morse   : unsigned(3 downto 0)  := (others => '0'); 
-  signal sig_cnt     : natural               := 0;               --! Local counter
-  signal sig_read    : std_logic             := '0';
+  signal sig_counter_0 : natural               := 0;
+  signal sig_counter   : unsigned(31 downto 0) := (others => '0');
+  signal sig_morse     : unsigned(3 downto 0)  := (others => '0'); 
+  signal sig_cnt       : natural               := 0;               --! Local counter
+  signal sig_read      : std_logic             := '0';
 
 begin
 
@@ -58,9 +60,9 @@ begin
   -- p_period_cnt:
   -- Local counter is active high. When i_logic is released,
   -- DASH or DOT is assigned to sig_morse at coresponding index.
-  -- Output variables o_morse, o_cnt are enabled when i_space is
-  -- HIGH (representing space between characters), this event
-  -- is signalized by o_read
+  -- Output variables o_morse, o_cnt are enabled when i_logic is
+  -- LOW after g_space_length clock cycles (representing space between characters)
+  -- this event is signalized by o_read
   --------------------------------------------------------
   p_period_cnt : process (clk) is
   begin
@@ -70,6 +72,7 @@ begin
         sig_read    <= '0';
         o_read      <= '0';                                    -- Dont read yet
         sig_counter <= sig_counter + 1;
+        sig_counter_0 <= 0;
       elsif (sig_counter > 0) then                             -- end of logic signal
         -- asigh DASH or DOT to correct position
         if (sig_counter > g_dot_length) then
@@ -80,20 +83,32 @@ begin
         -- next index if sig_morse (whole letter)
         sig_cnt     <= sig_cnt + 1;
         sig_counter <= (others => '0');
+      else
+        sig_counter_0 <= sig_counter_0 + 1;
+        
+        if (sig_counter_0 > g_space_length and sig_read = '0') then
+            o_morse  <= std_logic_vector(sig_morse);
+            o_cnt    <= std_logic_vector(to_unsigned(sig_cnt, 3));
+            o_read   <= '1';
+            sig_read <= '1';
+            
+            sig_morse   <= (others => '0');
+            sig_cnt     <= 0;
+        end if;
       end if;
 
-      if (i_space = '1' and sig_read = '0') then
-        -- LETTER is completed (init read stage)
-        o_morse  <= std_logic_vector(sig_morse);
-        o_cnt    <= std_logic_vector(to_unsigned(sig_cnt, 3));
-        o_read   <= '1';
-        sig_read <= '1';
+--      if (i_space = '1' and sig_read = '0') then
+--        -- LETTER is completed (init read stage)
+--        o_morse  <= std_logic_vector(sig_morse);
+--        o_cnt    <= std_logic_vector(to_unsigned(sig_cnt, 3));
+--        o_read   <= '1';
+--        sig_read <= '1';
 
-        -- Reset all values
-        sig_counter <= (others => '0');
-        sig_morse   <= (others => '0');
-        sig_cnt     <= 0;
-      end if;
+--        -- Reset all values
+--        sig_counter <= (others => '0');
+--        sig_morse   <= (others => '0');
+--        sig_cnt     <= 0;
+--      end if;
     end if;
 
   end process p_period_cnt;

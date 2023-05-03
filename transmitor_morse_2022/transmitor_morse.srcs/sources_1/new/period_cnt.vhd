@@ -28,7 +28,8 @@ library ieee;
 
 entity period_cnt is
   generic (
-    g_dot_length : natural := 5 --! Number of clk pulses to generate one enable signal period
+    g_dot_length : natural := 30; --! dot pulse length
+    g_space_length : natural := 200 --! space length
   );
   port (
     clk     : in    std_logic;                    -- Main clock
@@ -59,9 +60,9 @@ begin
   -- p_period_cnt:
   -- Local counter is active high. When i_logic is released,
   -- DASH or DOT is assigned to sig_morse at coresponding index.
-  -- Output variables o_morse, o_cnt are enabled when i_space is
-  -- HIGH (representing space between characters), this event
-  -- is signalized by o_read
+  -- Output variables o_morse, o_cnt are enabled when i_logic is
+  -- LOW after g_space_length clock cycles (representing space between characters)
+  -- this event is signalized by o_read
   --------------------------------------------------------
   p_period_cnt : process (clk) is
   begin
@@ -85,7 +86,7 @@ begin
       else
         sig_counter_0 <= sig_counter_0 + 1;
         
-        if (sig_counter_0 > 200 and sig_read = '0') then
+        if (sig_counter_0 > g_space_length and sig_read = '0') then
             o_morse  <= std_logic_vector(sig_morse);
             o_cnt    <= std_logic_vector(to_unsigned(sig_cnt, 3));
             o_read   <= '1';

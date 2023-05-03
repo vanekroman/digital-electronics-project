@@ -9,13 +9,6 @@
 ![Diagram](period_cnt.svg "Diagram")
 ## Description
 
-
- 
-
-
- 
-
-
  Counting period of input signal i_logic then assigns it either '0' or '1'
  if it is shorter then g_dot_length respectively longer then g_dot_length.
  Output will be provided when i_space changes to '1' as n-bit value of o_morse.
@@ -23,9 +16,10 @@
  !! Read output values only when o_read is '1' !!
 ## Generics
 
-| Generic name | Type    | Value | Description                                               |
-| ------------ | ------- | ----- | --------------------------------------------------------- |
-| g_dot_length | natural | 5     | Number of clk pulses to generate one enable signal period |
+| Generic name   | Type    | Value | Description      |
+| -------------- | ------- | ----- | ---------------- |
+| g_dot_length   | natural | 30    | dot pulse length |
+| g_space_length | natural | 200   | space length     |
 ## Ports
 
 | Port name | Direction | Type                         | Description |
@@ -38,11 +32,12 @@
 | o_read    | out       | std_logic                    |             |
 ## Signals
 
-| Name        | Type                  | Description   |
-| ----------- | --------------------- | ------------- |
-| sig_counter | unsigned(31 downto 0) |               |
-| sig_morse   | unsigned(3 downto 0)  |               |
-| sig_cnt     | natural               | Local counter |
-| sig_read    | std_logic             |               |
+| Name          | Type                  | Description   |
+| ------------- | --------------------- | ------------- |
+| sig_counter_0 | natural               |               |
+| sig_counter   | unsigned(31 downto 0) |               |
+| sig_morse     | unsigned(3 downto 0)  |               |
+| sig_cnt       | natural               | Local counter |
+| sig_read      | std_logic             |               |
 ## Processes
 - p_period_cnt: ( clk )
