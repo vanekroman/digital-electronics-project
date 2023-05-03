@@ -136,7 +136,6 @@ begin
     JA1 <= '0';
 
     -- 1 DASH
-    wait for 200 ms;
     JA1 <= '1';
     wait for 600 ms;
     JA1 <= '0';
