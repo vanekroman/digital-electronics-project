@@ -85,7 +85,7 @@ V Morseově kódu jsme našli algoritmus podle kterého jsme postupovali. Z teč
 | o_7seg    | out       | std_logic_vector(6 downto 0) |             |
 ## Processes
 - p_morse_reciever: ( i_read, i_morse, i_cnt )
-
+</div>
 
 ## Popis softwaru
 ```vhdl
