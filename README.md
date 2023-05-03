@@ -1,5 +1,5 @@
 # VHDL Projekt - Vysílač a přijímač Morseova kódu
-transmitor_morse pro Vivado 2020
+transmitor_morse pro Vivado 2020,
 transmitor_morse_2022 pro Vivado 2022
 
 ### Členové týmu
