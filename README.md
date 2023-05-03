@@ -313,8 +313,8 @@ Konečná impementace bere 2s za poslední sestupnou hranou jako mezeru mezi pí
 
 Impementace pomocí NEXYS A7 jako přijímače a Arduino UNO jako vysílače Morzeova kódu
 
-![image](doc/fpga.jpg)
+![image](FPGA_new.jpeg)
 
 Průběh písmena P zobrazen na osciloskopu
 
-![image](doc/fpga.jpg)
+![image](scope_1.png)
