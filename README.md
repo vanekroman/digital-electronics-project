@@ -306,7 +306,6 @@ end Behavioral;
 ```
 ### Simulace
 Na simulaci můžeme vidět JA1 jako tlačítko (morseúv kód), sig_clk je časový signál pro čítač periody daný z hlavního poděleného 100 MHz časového signálu. Samotný výstup se rozliší po stisknutí BTNC, reprezentující "mezeru" mezi písmeny.
-Simulace byla dělaná před konečnou impementací, tudíž mezeru mezi písmeny rozlišuje stisknutí BTNC.
 Konečná impementace bere 2s za poslední sestupnou hranou jako mezeru mezi písmeny.
 
 ![image](doc/sim_top.png)
