@@ -215,4 +215,6 @@ end architecture behavioral;
   .
   .
 ```
-### Simulace
+### Simulace pomocí Arduina UNO a Nexys A7-50T
+![image](FPGA.jpeg)
+
