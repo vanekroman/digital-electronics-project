@@ -17,6 +17,9 @@ V Morseově kódu jsme našli algoritmus podle kterého jsme postupovali. Z teč
 
 ## Popis hardwaru
 
+### Schéma
+![image](doc/schema.png)
+
 # Entity: top 
 
 - **File**: top.vhd

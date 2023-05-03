@@ -184,7 +184,7 @@ begin
               o_char <= 'X';
               o_7seg <= "1001000"; -- X
 
-            when "1010" =>
+            when "0101" =>
               o_char <= 'C';
               o_7seg <= "0110001"; -- C
 
