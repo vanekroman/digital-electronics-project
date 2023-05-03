@@ -119,10 +119,9 @@ Výstup čeká do té doby, než vnitřní counter je vetší než g_space_lengt
 
 ![Diagram](doc/morse_reciever.svg "Diagram")
 ## Popis
+Jednotlivé segmenty nastavíme podle vstupních hodnot i_morse a i_cnt, když i_read je v aktivním stavu.
+Pracujeme se 7-segmentovkou se společnou anodou.
 
- On i_read, it assign defined segments on 7 segment
- display coresponding to i_morse and i_cnt.
- It assumes 7 segment with active zero logic.
 ## Porty
 
 | Port name | Direction | Type                         | Description |
