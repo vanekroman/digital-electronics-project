@@ -65,9 +65,7 @@ V Morseově kódu jsme našli algoritmus podle kterého jsme postupovali. Z teč
 - uut_morse_reciever: work.morse_reciever
 - uut_clock_enable: work.clock_enable
 
-
-
-# Clock enable
+## Clock enable
 
 - **File**: period_cnt.vhd
 - **Copyright:** (c) 2023 Roman Vanek
@@ -106,12 +104,12 @@ Výstup čeká do té doby, než vnitřní counter je vetší než g_space_lengt
 | sig_morse     | unsigned(3 downto 0)  |               |
 | sig_cnt       | natural               | Local counter |
 | sig_read      | std_logic             |               |
-## Processes
+## Procesy
 - p_period_cnt: ( clk )
 
 
 
-# Pťijímač Morzeova kódu
+## Přijímač Morzeova kódu
 
 - **File**: morse_reciever.vhd
 - **Copyright:** (c) 2023 Roman Vanek
