@@ -21,7 +21,7 @@ library ieee;
   use ieee.numeric_std.all; -- Package for arithmetic operations
 
 ----------------------------------------------------------
--- Entity declaration for clock enable
+-- Entity declaration for morse reciever
 ----------------------------------------------------------
 
 entity morse_reciever is
@@ -35,7 +35,7 @@ entity morse_reciever is
 end entity morse_reciever;
 
 ------------------------------------------------------------
--- Architecture body for clock enable
+-- Architecture body for morse reciever
 ------------------------------------------------------------
 
 architecture behavioral of morse_reciever is
