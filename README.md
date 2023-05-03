@@ -1,4 +1,6 @@
 # VHDL Projekt - Vysílač a přijímač Morseova kódu
+transmitor_morse pro Vivado 2020
+transmitor_morse_2022 pro Vivado 2022
 
 ### Členové týmu
 * Filip Tůma (230896) 
@@ -16,6 +18,54 @@ V Morseově kódu jsme našli algoritmus podle kterého jsme postupovali. Z teč
 ![image](doc/7_seg_alphabet.jpg)
 
 ## Popis hardwaru
+
+### Schéma
+![image](doc/schema.png)
+
+# Entity: top 
+
+- **File**: top.vhd
+## Diagram
+
+![Diagram](doc/top.svg "Diagram")
+## Ports
+
+| Port name | Direction | Type                         | Description |
+| --------- | --------- | ---------------------------- | ----------- |
+| CLK100MHZ | in        | std_logic                    |             |
+| BTNC      | in        | std_logic                    |             |
+| CA        | out       | std_logic                    |             |
+| CB        | out       | std_logic                    |             |
+| CC        | out       | std_logic                    |             |
+| CD        | out       | std_logic                    |             |
+| CE        | out       | std_logic                    |             |
+| CF        | out       | std_logic                    |             |
+| CG        | out       | std_logic                    |             |
+| AN        | out       | std_logic_vector(7 downto 0) |             |
+| JA1       | in        | std_logic                    |             |
+## Signals
+
+| Name        | Type                         | Description |
+| ----------- | ---------------------------- | ----------- |
+| sig_clk     | std_logic                    |             |
+| sig_o_morse | std_logic_vector(3 downto 0) |             |
+| sig_o_cnt   | std_logic_vector(2 downto 0) |             |
+| sig_o_read  | std_logic                    |             |
+| sig_o_char  | character                    |             |
+## Constants
+
+| Name           | Type    | Value   | Description |
+| -------------- | ------- | ------- | ----------- |
+| c_clk_max      | natural | 1000000 |             |
+| c_cnt_length   | natural | 30      |             |
+| c_space_length | natural | 200     |             |
+## Instantiations
+
+- uut_period_cnt1: work.period_cnt
+- uut_morse_reciever: work.morse_reciever
+- uut_clock_enable: work.clock_enable
+
+
 
 # Clock enable
 
@@ -35,31 +85,33 @@ V Morseově kódu jsme našli algoritmus podle kterého jsme postupovali. Z teč
  !! Read output values only when o_read is '1' !!
 ## Generics
 
-| Generic name | Type    | Value | Description                                               |
-| ------------ | ------- | ----- | --------------------------------------------------------- |
-| g_dot_length | natural | 5     | Number of clk pulses to generate one enable signal period |
+| Generic name   | Type    | Value | Description      |
+| -------------- | ------- | ----- | ---------------- |
+| g_dot_length   | natural | 30    | dot pulse length |
+| g_space_length | natural | 200   | space length     |
 ## Ports
 
 | Port name | Direction | Type                         | Description |
 | --------- | --------- | ---------------------------- | ----------- |
 | clk       | in        | std_logic                    |             |
-| i_space   | in        | std_logic                    |             |
 | i_logic   | in        | std_logic                    |             |
 | o_morse   | out       | std_logic_vector(3 downto 0) |             |
 | o_cnt     | out       | std_logic_vector(2 downto 0) |             |
 | o_read    | out       | std_logic                    |             |
 ## Signals
 
-| Name        | Type                  | Description   |
-| ----------- | --------------------- | ------------- |
-| sig_counter | unsigned(31 downto 0) |               |
-| sig_morse   | unsigned(3 downto 0)  |               |
-| sig_cnt     | natural               | Local counter |
-| sig_read    | std_logic             |               |
+| Name          | Type                  | Description   |
+| ------------- | --------------------- | ------------- |
+| sig_counter_0 | natural               |               |
+| sig_counter   | unsigned(31 downto 0) |               |
+| sig_morse     | unsigned(3 downto 0)  |               |
+| sig_cnt       | natural               | Local counter |
+| sig_read      | std_logic             |               |
 ## Processes
 - p_period_cnt: ( clk )
 
-<div style="background-color: beige; padding: 10px">
+
+
 # Morse Code Reciever
 
 - **File**: morse_reciever.vhd
@@ -71,7 +123,7 @@ V Morseově kódu jsme našli algoritmus podle kterého jsme postupovali. Z teč
 ![Diagram](doc/morse_reciever.svg "Diagram")
 ## Description
 
- On rising edge of i_read, it assign defined segments on 7 segment
+ On i_read, it assign defined segments on 7 segment
  display coresponding to i_morse and i_cnt.
  It assumes 7 segment with active zero logic.
 ## Ports
@@ -85,38 +137,10 @@ V Morseově kódu jsme našli algoritmus podle kterého jsme postupovali. Z teč
 | o_7seg    | out       | std_logic_vector(6 downto 0) |             |
 ## Processes
 - p_morse_reciever: ( i_read, i_morse, i_cnt )
-</div>
+
 
 ## Popis softwaru
 ```vhdl
--- vsg_off
-----------------------------------------------------------
---
---! @title Clock enable
---! @author Roman Vanek
---!
---! @copyright (c) 2023 Roman Vanek
---! This work is licensed under the terms of the MIT license
---!
---
--- Hardware: Nexys A7-50T, xc7a50ticsg324-1L
--- Software: TerosHDL, Vivado 2020.2, EDA Playground
---
-----------------------------------------------------------
-
-
-library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
-
--- Uncomment the following library declaration if using
--- arithmetic functions with Signed or Unsigned values
---use IEEE.NUMERIC_STD.ALL;
-
--- Uncomment the following library declaration if instantiating
--- any Xilinx leaf cells in this code.
---library UNISIM;
---use UNISIM.VComponents.all;
-
 entity top is
     Port 
     ( 
@@ -139,6 +163,7 @@ architecture Behavioral of top is
   -- Counter constants
   constant c_clk_max    : natural := 1000000;   -- 10 ms
   constant c_cnt_length : natural := 30; -- > 300 ms => DASH 
+  constant c_space_length : natural := 200; -- > 2 s => SPACE 
 
   signal sig_clk      : std_logic;                    -- Main clock
 
@@ -150,9 +175,12 @@ architecture Behavioral of top is
 
 begin
 
+  -- Connecting testbench signals with tb_period_cnt
+  -- entity (Unit Under Test)
   uut_period_cnt1 : entity work.period_cnt
     generic map (
-      g_dot_length => c_cnt_length
+      g_dot_length => c_cnt_length,
+      g_space_length => c_space_length
     )
     port map (
       clk     => sig_clk,
@@ -189,32 +217,24 @@ begin
     );
     
    AN <= b"1111_1110";
+   --AN <= (b"1111_1110" and (sig_clk_7seg)) or (b"1111_1110");
    
    JA2 <= sig_clk;
 
 
 end Behavioral;
+
 ```
 
 ### Rozlišování periody
 ```vhdl
-architecture behavioral of period_cnt is
-
-  -- Local counter
-  signal sig_counter : unsigned(31 downto 0) := (others => '0');
-  signal sig_morse   : unsigned(3 downto 0)  := (others => '0'); 
-  signal sig_cnt     : natural               := 0;               --! Local counter
-  signal sig_read    : std_logic             := '0';
-
-begin
-
   --------------------------------------------------------
   -- p_period_cnt:
   -- Local counter is active high. When i_logic is released,
   -- DASH or DOT is assigned to sig_morse at coresponding index.
-  -- Output variables o_morse, o_cnt are enabled when i_space is
-  -- HIGH (representing space between characters), this event
-  -- is signalized by o_read
+  -- Output variables o_morse, o_cnt are enabled when i_logic is
+  -- LOW after g_space_length clock cycles (representing space between characters)
+  -- this event is signalized by o_read
   --------------------------------------------------------
   p_period_cnt : process (clk) is
   begin
@@ -224,6 +244,7 @@ begin
         sig_read    <= '0';
         o_read      <= '0';                                    -- Dont read yet
         sig_counter <= sig_counter + 1;
+        sig_counter_0 <= 0;
       elsif (sig_counter > 0) then                             -- end of logic signal
         -- asigh DASH or DOT to correct position
         if (sig_counter > g_dot_length) then
@@ -234,32 +255,26 @@ begin
         -- next index if sig_morse (whole letter)
         sig_cnt     <= sig_cnt + 1;
         sig_counter <= (others => '0');
+      else
+        sig_counter_0 <= sig_counter_0 + 1;
+        
+        if (sig_counter_0 > g_space_length and sig_read = '0') then
+            o_morse  <= std_logic_vector(sig_morse);
+            o_cnt    <= std_logic_vector(to_unsigned(sig_cnt, 3));
+            o_read   <= '1';
+            sig_read <= '1';
+            
+            sig_morse   <= (others => '0');
+            sig_cnt     <= 0;
+        end if;
       end if;
-
-      if (i_space = '1' and sig_read = '0') then
-        -- LETTER is completed (init read stage)
-        o_morse  <= std_logic_vector(sig_morse);
-        o_cnt    <= std_logic_vector(to_unsigned(sig_cnt, 3));
-        o_read   <= '1';
-        sig_read <= '1';
-
-        -- Reset all values
-        sig_counter <= (others => '0');
-        sig_morse   <= (others => '0');
-        sig_cnt     <= 0;
-      end if;
-    end if;
-
-  end process p_period_cnt;
-
-end architecture behavioral;
 ```
-### Pťijímač morzeova kódu
+### Přijímač morzeova kódu
 ```vhdl
   p_morse_reciever : process (i_read, i_morse, i_cnt) is
   begin
 
-    if rising_edge(i_read) then
+    if (i_read = '1') then
 
       --sig_column <= unsigned(i_cnt);
       --sig_row <= unsigned(i_morse);
@@ -280,10 +295,23 @@ end architecture behavioral;
             when others =>
               o_char <= 'e';    -- ERROR
               o_7seg <= "0010010"; -- 2
+
+          end case;
   .
   .
   .
+    else
+      o_char <= '_';    -- waiting transmittion to complete
+      o_7seg <= "1110111"; -- _
+    end if;
 ```
 ### Simulace
 Na simulaci můžeme vidět JA1 jako tlačítko (morseúv kód), sig_clk je časový signál pro čítač periody daný z hlavního poděleného 100 MHz časového signálu. Samotný výstup se rozliší po stisknutí BTNC, reprezentující "mezeru" mezi písmeny.
+Simulace byla dělaná před konečnou impementací, tudíž mezeru mezi písmeny rozlišuje stisknutí BTNC.
+Konečná impementace bere 2s za poslední sestupnou hranou jako mezeru mezi písmeny.
+
 ![image](doc/sim_top.png)
+
+Impementace pomocí NEXYS A7 jako přijímače a Arduino UNO jako vysílače Morzeova kódu
+
+![image](doc/fpga.jpg)
