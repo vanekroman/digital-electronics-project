@@ -7,7 +7,7 @@
 --! @copyright (c) 2023 Roman Vanek
 --! This work is licensed under the terms of the MIT license
 --!
---! On rising edge of i_read, it assign defined segments on 7 segment
+--! On i_read, it assign defined segments on 7 segment
 --! display coresponding to i_morse and i_cnt.
 --! It assumes 7 segment with active zero logic.
 --
@@ -49,7 +49,7 @@ begin
   p_morse_reciever : process (i_read, i_morse, i_cnt) is
   begin
 
-    if rising_edge(i_read) then
+    if (i_read = '1') then
 
       --sig_column <= unsigned(i_cnt);
       --sig_row <= unsigned(i_morse);
@@ -220,6 +220,9 @@ begin
 
       end case;
 
+    else
+        o_char <= '_';    -- ERROR
+        o_7seg <= "1110111"; -- 2 
     end if;
 
   end process p_morse_reciever;
